@@ -28,3 +28,10 @@ npx prisma migrate dev --name init
 npx prisma db push
 
 npx prisma migrate deploy
+
+
+DATABASE_URL="postgresql://postgres:postgres@localhost:6500/explore-prisma?schema=public"
+JWT_SECRET="dsfn9328j3209123ey21f"
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=explore-prisma
