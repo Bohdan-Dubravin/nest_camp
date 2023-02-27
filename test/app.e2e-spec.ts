@@ -80,8 +80,8 @@ describe('App 2e2', () => {
         return pactum
           .spec()
           .patch('/users/edit')
-          .withBody(dto)
           .withHeaders({ Authorization: 'Bearer $S{userAt}' })
+          .withBody(dto)
           .expectStatus(200);
       });
     });
