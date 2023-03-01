@@ -41,3 +41,71 @@ model Bookmark{
 
     @@map("bookmarks")
 }
+
+
+
+//double relationship fields two referencies
+model UserDoubleRelationship{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  password String
+
+  firstName String?
+  lastName String?
+
+
+
+  bookmarks BookmarkDoubleRelationship[] @relation("BookmarRegular")
+  Favbookmarks BookmarkDoubleRelationship[]  @relation("BookmarFavorite")
+}
+
+
+model BookmarkDoubleRelationship {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title String
+  description String?
+  link String
+
+  user UserDoubleRelationship @relation("BookmarRegular",fields: [userId], references: [id])
+  userId Int
+
+  favoritBook UserDoubleRelationship? @relation("BookmarFavorite",fields: [userIdFav], references: [id])
+  userIdFav Int?
+
+}
+
+
+
+//many to many and one to one
+
+
+model Post{
+  id String @id @default(uuid())
+  rating Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  categories Category[] //so simple
+  PostPreference PostPreference? //one to one
+
+}
+
+
+model PostPreference {
+   id String @id @default(uuid())
+   emailUpdates Boolean
+
+   post Post @relation(fields: [postId], references: [id]) //one to one
+   postId String @unique
+}
+
+model Category {
+  id String @id @default(uuid())
+  posts Post[] //so simple
+}
+
